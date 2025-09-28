@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex" style="min-height: 50vh; max-height: 70vh;">
+  <nav class="shadow p-3 border rounded me-3 d-flex flex-column" style="width: 12em;">
+    <ul class="nav nav-pills flex-grow-1 overflow-auto text-sm text-nowrap" id="generation-list">
+    </ul>
+  </nav>
+
+  <div id="pokemon-box" class="shadow text-center p-4 overflow-auto flex-grow-1 d-flex flex-wrap justify-content-center align-content-start gap-3">
+  </div>
+
+  <div class="modal fade" id="evolutionModal" tabIndex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-3">
+        <div class="modal-header">
+          <h5 class="modal-title" id="evolutionModalLabel">Pokemon Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs" id="pkmInfoTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="evolutions-tab" data-bs-toggle="tab" data-bs-target="#evolutions-pane" type="button" role="tab">Evolutions</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="locations-tab" data-bs-toggle="tab" data-bs-target="#locations-pane" type="button" role="tab">Locations</button>
+            </li>
+          </ul>
+
+          <div class="tab-content pt-3" id="pkmInfoTabContent">
+            <div class="tab-pane fade show active" id="evolutions-pane" role="tabpanel">
+              <div id="evolution-content" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="locations-pane" role="tabpanel">
+              <div id="location-content" class="d-flex flex-column justify-content-center align-items-center" style="min-height: 200px;">
+                </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

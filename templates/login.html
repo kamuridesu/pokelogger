@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow text-center p-4" style="max-width: 420px; width: 100%;">
+    <h2 class="mb-4">Login</h2>
+    <form onsubmit="login(event)">
+      <div class="mb-3 text-start">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" name="username" class="form-control" autocomplete="username" required />
+      </div>
+      <div class="mb-3 text-start">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" name="password" type="password" class="form-control" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+[project]
+name = "pykemon-catch-logger"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiopokeapi>=0.1.12",
+    "hypercorn>=0.17.3",
+    "psycopg2-binary>=2.9.10",
+    "quart>=0.20.0",
+]

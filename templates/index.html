@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow text-center p-4" style="max-width: 420px; width: 100%;">
+    <div class="mb-3">
+    <img src="{{ url_for('static_bp.static', filename='pokeball.svg') }}" width=64px height=64px></img> 
+    </div>
+    <h1 class="mb-3">Log your Pokémon Journey</h1>
+    <p class="text-muted mb-4">Track your adventures, manage your Pokémon, and share your story!</p>
+    <a href="{{ url_for('api._register') }}" class="btn btn-primary btn-lg">
+      Get Started
+    </a>
+  </div>
+</div>
+{% endblock %}
