@@ -46,20 +46,18 @@ async function login__register(path) {
   }
 }
 
-async function login(event) {
+export async function login(event) {
   if (event != undefined) {
     event.preventDefault();
   }
   return await login__register("login");
 }
 
-async function register(event) {
+export async function register(event) {
   if (event != undefined) {
     event.preventDefault();
   }
   return await login__register("register");
 }
 
-document.addEventListener("submit", (_) => {});
-
-export { login, register };
+document.addEventListener("submit", (_) => { });

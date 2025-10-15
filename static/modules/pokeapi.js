@@ -16,7 +16,7 @@ function getActiveGeneration() {
   document.getElementById(generation).childNodes[1].classList.add("active");
 }
 
-async function fetchPokemonGenerations() {
+export async function fetchPokemonGenerations() {
   const parent = document.getElementById("generation-list");
   let children = "";
   const generations = await pokedex.getGenerationsList();
@@ -372,8 +372,6 @@ if (pkmBox !== null) {
   });
 }
 
-async function buildPokemonList(context) {
+export async function buildPokemonList(context) {
   await loadAndDisplayPokemon(context);
 }
-
-export { buildPokemonList, fetchPokemonGenerations };

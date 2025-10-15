@@ -4,7 +4,7 @@ let LAST_SNACKBAR_DIV = null;
 let DELETE_SNACK_TIMEOUT = null;
 let CLEAR_SNACK_TIMEOUT = null;
 
-function capitalize(string) {
+export function capitalize(string) {
   return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
@@ -30,7 +30,7 @@ function removeSnackbar() {
   }
 }
 
-function toggleSnackbar(message) {
+export function toggleSnackbar(message) {
   removeSnackbar();
   message = capitalize(message);
 
@@ -51,5 +51,3 @@ function toggleSnackbar(message) {
     showSnackbar(snack);
   }
 }
-
-export { toggleSnackbar, capitalize };

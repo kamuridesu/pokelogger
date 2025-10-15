@@ -2,7 +2,7 @@ import { buildUrl } from "./meta.js";
 import { toggleSnackbar } from "./snackbar.js";
 
 // ================== Cache control ====================
-async function getCachedPokemon(genId) {
+export async function getCachedPokemon(genId) {
   try {
     let response = await fetch(buildUrl(`cache/${genId}`));
     if (!response.ok) {
@@ -18,7 +18,7 @@ async function getCachedPokemon(genId) {
   }
 }
 
-async function putCachedPokemon(genId, pokemonList) {
+export async function putCachedPokemon(genId, pokemonList) {
   try {
     let response = await fetch(buildUrl(`cache/${genId}`), {
       method: "post",
@@ -38,5 +38,3 @@ async function putCachedPokemon(genId, pokemonList) {
     toggleSnackbar("Error while processing request, try again.");
   }
 }
-
-export { putCachedPokemon, getCachedPokemon };
