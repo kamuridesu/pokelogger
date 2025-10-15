@@ -13,6 +13,12 @@ app.secret_key = os.getenv("SECRET_KEY", "testkey")
 CONTEXT_PATH = os.getenv("CONTEXT_PATH", "")
 
 
+@app.after_request
+def add_header(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
 async def main():
     db = os.getenv("DATABASE_URL", "test.db")
     database = Database(db)

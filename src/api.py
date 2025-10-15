@@ -23,7 +23,6 @@ class Api(Blueprint):
         super().__init__("api", __name__)
         self.database = database
         self.api = aiopoke.AiopokeClient()
-
         self.add_url_rule("/", view_func=self.index)
         self.add_url_rule(
             "/pokeapi-js-wrapper-sw.js",
