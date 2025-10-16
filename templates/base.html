@@ -19,10 +19,11 @@
       site: 'us5.datadoghq.com',
       service: 'pokelogger',
       env: 'prod',
+      trackUserInteractions: true,
       sessionSampleRate: 100,
       sessionReplaySampleRate: 100,
       trackBfcacheViews: true,
-      defaultPrivacyLevel: 'mask-user-input',
+      defaultPrivacyLevel: 'allow',
     });
   })
 </script>
