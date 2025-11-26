@@ -1,6 +1,7 @@
 from datetime import datetime
 from time import time
 
+import aiohttp
 import aiopoke
 from quart import (
     Blueprint,
@@ -57,6 +58,7 @@ class Api(Blueprint):
             methods=["GET", "POST"],
         )
         self.add_url_rule("/health", view_func=self.health, methods=["GET"])
+        self.add_url_rule("/test", view_func=self.test, methods=["GET"])
 
     def health(self):
         return jsonify({"status": "ok"}), 200
@@ -194,3 +196,11 @@ class Api(Blueprint):
                 continue
             __cache.append(c)
         return __cache
+
+    async def test(self):
+        async with aiohttp.ClientSession() as client:
+            async with client.get(
+                "https://api.kamuridesu.com/java-dd-test-two/init"
+            ) as resp:
+                data = await resp.text()
+                return data, 200
