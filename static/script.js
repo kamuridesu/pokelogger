@@ -9,6 +9,32 @@ if (window.location.pathname.startsWith(`${window.CONTEXT_PATH}/dashboard`)) {
   fetchPokemonGenerations();
 }
 
+const originalFetch = window.fetch;
+const accessId = crypto.randomUUID();
+
 window.login = login;
 window.register = register;
 window.buildPokemonList = buildPokemonList;
+
+window.fetch = async (...args) => {
+  let [resource, config] = args;
+
+  config = config || {};
+
+  const baggageKey = "baggage";
+  const baggageValue = "x-correlation-id=" + accessId;
+
+  if (!config.headers) {
+    config.headers = {};
+  }
+
+  if (config.headers instanceof Headers) {
+    config.headers.set(baggageKey, baggageValue);
+  } else {
+    config.headers[baggageKey] = baggageValue;
+  }
+
+  const response = await originalFetch(resource, config);
+
+  return response;
+};

@@ -47,7 +47,7 @@ async function catchPkm(pkmId) {
       return toggleSnackbar(data.message);
     }
     toggleCaught(pkmId, true);
-  } catch (e) {}
+  } catch (e) { }
 }
 
 async function releasePkm(pkmId) {
@@ -62,7 +62,7 @@ async function releasePkm(pkmId) {
       return toggleSnackbar(data.message);
     }
     toggleCaught(pkmId, false);
-  } catch (e) {}
+  } catch (e) { }
 }
 
 function isCaught(pkmId) {
