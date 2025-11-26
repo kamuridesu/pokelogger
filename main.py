@@ -3,6 +3,8 @@ import os
 
 import hypercorn as hc
 import hypercorn.asyncio as hcaio
+from ddtrace import tracer
+from ddtrace.contrib.asgi import TraceMiddleware
 from quart import Blueprint, Quart
 
 from src.api import Api
@@ -31,6 +33,8 @@ async def main():
         ),
         url_prefix=CONTEXT_PATH,
     )
+
+    app.asgi_app = TraceMiddleware(app.asgi_app, tracer=tracer, service="pokelogger")
 
     config = hc.Config()
     config.bind = "0.0.0.0:8080"
