@@ -20,37 +20,39 @@ window.login = login;
 window.register = register;
 window.buildPokemonList = buildPokemonList;
 
-window.fetch = async (...args) => {
-  let [resource, config] = args;
+async () => {
+  window.fetch = async (...args) => {
+    let [resource, config] = args;
 
-  config = config || {};
+    config = config || {};
 
-  const baggageKey = "baggage";
-  const baggageValue = "x-correlation-id=" + accessId;
+    const baggageKey = "baggage";
+    const baggageValue = "x-correlation-id=" + accessId;
 
-  if (!config.headers) {
-    config.headers = {};
-  }
-
-  let urlString = resource;
-  if (resource instanceof Request) {
-    urlString = resource.url;
-  }
-
-  const isInternalRequest =
-    urlString.toString().startsWith("/") ||
-    urlString.toString().includes("tools.kamuridesu.com") ||
-    urlString.toString().includes("localhost");
-
-  if (isInternalRequest) {
-    if (config.headers instanceof Headers) {
-      config.headers.set(baggageKey, baggageValue);
-    } else {
-      config.headers[baggageKey] = baggageValue;
+    if (!config.headers) {
+      config.headers = {};
     }
-  }
 
-  const response = await originalFetch(resource, config);
+    let urlString = resource;
+    if (resource instanceof Request) {
+      urlString = resource.url;
+    }
 
-  return response;
+    const isInternalRequest =
+      urlString.toString().startsWith("/") ||
+      urlString.toString().includes("tools.kamuridesu.com") ||
+      urlString.toString().includes("localhost");
+
+    if (isInternalRequest) {
+      if (config.headers instanceof Headers) {
+        config.headers.set(baggageKey, baggageValue);
+      } else {
+        config.headers[baggageKey] = baggageValue;
+      }
+    }
+
+    const response = await originalFetch(resource, config);
+
+    return response;
+  };
 };
