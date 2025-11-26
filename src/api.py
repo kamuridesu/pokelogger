@@ -23,7 +23,7 @@ class Api(Blueprint):
     def __init__(self, database: Database):
         super().__init__("api", __name__)
         self.database = database
-        self.api = aiopoke.AiopokeClient()
+        self.api: aiopoke.AiopokeClient | None = None
         self.add_url_rule("/", view_func=self.index)
         self.add_url_rule(
             "/pokeapi-js-wrapper-sw.js",
@@ -59,6 +59,9 @@ class Api(Blueprint):
         )
         self.add_url_rule("/health", view_func=self.health, methods=["GET"])
         self.add_url_rule("/test", view_func=self.test, methods=["GET"])
+
+    async def setup_client(self):
+        self.api = aiopoke.AiopokeClient()
 
     def health(self):
         return jsonify({"status": "ok"}), 200
@@ -134,6 +137,13 @@ class Api(Blueprint):
         return jsonify({"message": "invalid method"}), 405
 
     async def dashboard(self, gen_id: int):
+        if self.api is None:
+            return (
+                jsonify(
+                    {"message": "an error happened while getting services ready :("}
+                ),
+                500,
+            )
         if not session.get("user_id"):
             return redirect(url_for("api.login"))
         try:
