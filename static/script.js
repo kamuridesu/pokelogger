@@ -12,6 +12,10 @@ if (window.location.pathname.startsWith(`${window.CONTEXT_PATH}/dashboard`)) {
 const originalFetch = window.fetch;
 const accessId = crypto.randomUUID();
 
+if (window.DD_RUM && window.DD_RUM.setGlobalContextProperty) {
+  window.DD_RUM.setGlobalContextProperty("usr.correlation_id", accessId);
+}
+
 window.login = login;
 window.register = register;
 window.buildPokemonList = buildPokemonList;
