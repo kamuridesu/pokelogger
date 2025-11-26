@@ -28,10 +28,17 @@ window.fetch = async (...args) => {
     config.headers = {};
   }
 
-  if (config.headers instanceof Headers) {
-    config.headers.set(baggageKey, baggageValue);
-  } else {
-    config.headers[baggageKey] = baggageValue;
+  const isInternalRequest =
+    urlString.toString().startsWith("/") ||
+    urlString.toString().includes("tools.kamuridesu.com") ||
+    urlString.toString().includes("localhost");
+
+  if (isInternalRequest) {
+    if (config.headers instanceof Headers) {
+      config.headers.set(baggageKey, baggageValue);
+    } else {
+      config.headers[baggageKey] = baggageValue;
+    }
   }
 
   const response = await originalFetch(resource, config);
