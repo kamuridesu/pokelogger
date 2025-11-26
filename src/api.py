@@ -60,6 +60,8 @@ class Api(Blueprint):
         self.add_url_rule("/health", view_func=self.health, methods=["GET"])
         self.add_url_rule("/test", view_func=self.test, methods=["GET"])
 
+        self.before_app_serving(self.setup_client)
+
     async def setup_client(self):
         self.api = aiopoke.AiopokeClient()
 
