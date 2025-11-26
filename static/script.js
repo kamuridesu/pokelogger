@@ -28,6 +28,11 @@ window.fetch = async (...args) => {
     config.headers = {};
   }
 
+  let urlString = resource;
+  if (resource instanceof Request) {
+    urlString = resource.url;
+  }
+
   const isInternalRequest =
     urlString.toString().startsWith("/") ||
     urlString.toString().includes("tools.kamuridesu.com") ||
