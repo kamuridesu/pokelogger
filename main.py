@@ -1,5 +1,12 @@
+import asyncio
 import os
 
+import hypercorn as hc
+import hypercorn.asyncio as hcaio
+from ddtrace import patch
+
+patch(aiohttp=True)
+from ddtrace.contrib.asgi import TraceMiddleware
 from quart import Blueprint, Quart
 
 from src.api import Api
@@ -16,12 +23,28 @@ def add_header(response):
     return response
 
 
-db = os.getenv("DATABASE_URL", "test.db")
-database = Database(db)
-api = Api(database)
-api.url_prefix = CONTEXT_PATH
-app.register_blueprint(api, url_prefix=CONTEXT_PATH)
-app.register_blueprint(
-    Blueprint("static_bp", __name__, static_folder="static", static_url_path="/static"),
-    url_prefix=CONTEXT_PATH,
-)
+async def main():
+    db = os.getenv("DATABASE_URL", "test.db")
+    database = Database(db)
+    api = Api(database)
+    api.url_prefix = CONTEXT_PATH
+    app.register_blueprint(api, url_prefix=CONTEXT_PATH)
+    app.register_blueprint(
+        Blueprint(
+            "static_bp", __name__, static_folder="static", static_url_path="/static"
+        ),
+        url_prefix=CONTEXT_PATH,
+    )
+
+    app.asgi_app = TraceMiddleware(app.asgi_app)
+
+    config = hc.Config()
+    config.bind = "0.0.0.0:8080"
+    config.errorlog = "-"
+    config.accesslog = "-"
+
+    await hcaio.serve(app, config)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

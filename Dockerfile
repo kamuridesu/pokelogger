@@ -10,4 +10,4 @@ COPY templates/ templates/
 COPY static/ static/
 COPY src/ src/
 COPY main.py main.py
-ENTRYPOINT [ "hypercorn", "main:app", "--config", "hypercorn.toml" ]
+ENTRYPOINT [ "python", "main.py" ]

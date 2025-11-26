@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiopokeapi>=0.1.12",
+    "ddtrace>=4.0.0",
     "hypercorn>=0.17.3",
     "psycopg2-binary>=2.9.10",
     "quart>=0.20.0",
