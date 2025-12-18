@@ -14,7 +14,7 @@ const originalFetch = window.fetch;
 const accessId = crypto.randomUUID();
 
 if (window.DD_RUM && window.DD_RUM.setGlobalContextProperty) {
-  window.DD_RUM.setGlobalContextProperty("usr.correlation_id", accessId);
+  window.DD_RUM.setGlobalContextProperty("correlation_id", accessId);
 }
 
 window.login = login;
@@ -27,8 +27,8 @@ window.buildPokemonList = buildPokemonList;
 
     config = config || {};
 
-    const baggageKey = "baggage";
-    const baggageValue = "x-correlation-id=" + accessId;
+    const baggageKey = "x-correlation-id";
+    const baggageValue = accessId;
 
     if (!config.headers) {
       config.headers = {};
