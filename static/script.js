@@ -27,8 +27,8 @@ window.buildPokemonList = buildPokemonList;
 
     config = config || {};
 
-    const baggageKey = "x-correlation-id";
-    const baggageValue = accessId;
+    const baggageKey = "baggage";
+    const baggageValue = "correlation_id=" + accessId;
 
     if (!config.headers) {
       config.headers = {};
