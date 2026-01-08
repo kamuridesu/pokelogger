@@ -5,7 +5,7 @@ import hypercorn as hc
 import hypercorn.asyncio as hcaio
 from ddtrace import patch
 
-patch(aiohttp=True)
+patch(aiohttp=True, psycopg=True)
 from ddtrace.contrib.asgi import TraceMiddleware
 from quart import Blueprint, Quart
 
